@@ -1,0 +1,54 @@
+.countdown-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #ff3366;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.location-info {
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 20px 0;
+}
+
+.redirect-message,
+.waiting-message {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.countdown-number {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff3366;
+  margin: 20px 0;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
