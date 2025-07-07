@@ -92,7 +92,7 @@ const RegistrationForm = () => {
                 >
                   <option value="">-- Chọn phiên --</option>
                   <option value="10:00 - 12:00">10:00 - 12:00</option>
-                  <option value="12:00 - 14:00">12:00 - 14:00</option>
+                  <option value="12:00 - 14:00">14:00 - 16:00</option>
                 </select>
               </label>
             </div>

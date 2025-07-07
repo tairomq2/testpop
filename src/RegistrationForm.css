@@ -1,3 +1,10 @@
+/* General reset for consistency across devices */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .registration-wrapper {
   display: flex;
   justify-content: center;
@@ -5,25 +12,30 @@
   min-height: 100vh;
   background-color: #f5f7fa;
   padding: 10px;
-  box-sizing: border-box;
+  padding-bottom: env(
+    safe-area-inset-bottom
+  ); /* Support for iPhone notch and Android navigation bar */
 }
 
+/* Ensure container respects safe areas */
 .registration-container {
   max-width: 450px;
   width: 100%;
   padding: 15px;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   font-family: "Inter", Arial, sans-serif;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
 }
 
+/* Header styles */
 .registration-content h1 {
   color: #ff4d7d;
   text-align: center;
   margin-bottom: 5px;
-  font-size: 20px;
+  font-size: clamp(18px, 5vw, 20px); /* Responsive font size */
   font-weight: 600;
 }
 
@@ -31,10 +43,11 @@
   color: #333;
   text-align: center;
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: clamp(12px, 3.5vw, 14px);
   font-weight: 400;
 }
 
+/* Form group styling */
 .form-group {
   margin-bottom: 12px;
 }
@@ -44,17 +57,17 @@ label {
   margin-bottom: 5px;
   font-weight: 500;
   color: #444;
-  font-size: 13px;
+  font-size: clamp(12px, 3.5vw, 13px);
 }
 
+/* Input and select styling */
 input,
 select {
   width: 100%;
-  padding: 8px;
+  padding: 10px; /* Increased padding for touch-friendliness */
   border: 1px solid #e0e0e0;
   border-radius: 4px;
-  font-size: 14px;
-  box-sizing: border-box;
+  font-size: clamp(13px, 4vw, 14px);
   transition: border-color 0.2s ease-in-out;
 }
 
@@ -65,63 +78,45 @@ select:focus {
   box-shadow: 0 0 4px rgba(255, 77, 125, 0.3);
 }
 
+/* Submit button styling */
 .submit-btn {
   background-color: #ff4d7d;
   color: white;
   border: none;
-  padding: 10px;
-  font-size: 14px;
+  padding: 12px; /* Increased padding for touch targets */
+  font-size: clamp(13px, 4vw, 14px);
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
   transition: background-color 0.2s ease-in-out;
-  margin-top: 8px;
+  margin-top: 10px;
+  min-height: 44px; /* Minimum touch target size */
 }
 
 .submit-btn:hover {
   background-color: #e6456e;
 }
 
-@media (max-width: 480px) {
-  .registration-container {
-    max-width: 90%;
-    padding: 10px;
-  }
-
-  .registration-content h1 {
-    font-size: 18px;
-  }
-
-  .registration-content h2 {
-    font-size: 12px;
-  }
-
-  input,
-  select,
-  .submit-btn {
-    font-size: 13px;
-    padding: 7px;
-  }
-}
-
 /* Confirmation View Styles */
 .confirmation {
   text-align: center;
   padding: 20px;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .confirmation-header h1 {
   background-color: #ff0000;
   color: white;
-  padding: 10px;
+  padding: 12px;
   margin: -15px -20px 20px -20px;
-  font-size: 24px;
+  font-size: clamp(20px, 6vw, 24px);
   font-weight: 700;
 }
 
 .confirmation-title {
   color: #00cc00;
-  font-size: 18px;
+  font-size: clamp(16px, 5vw, 18px);
   margin-bottom: 15px;
   font-weight: 600;
 }
@@ -135,16 +130,15 @@ select:focus {
 
 .confirmation-details p {
   margin: 8px 0;
-  font-size: 14px;
+  font-size: clamp(12px, 3.5vw, 14px);
   color: #333;
   text-align: left;
+}
 
-  /* Style the value (text after the colon) in red */
-  &:after {
-    content: attr(data-value);
-    color: #ff0000;
-    margin-left: 5px;
-  }
+.confirmation-details p::after {
+  content: attr(data-value);
+  color: #ff0000;
+  margin-left: 5px;
 }
 
 .qr-code-placeholder {
@@ -160,12 +154,90 @@ select:focus {
   align-items: center;
   justify-content: center;
   border: 1px dashed #666;
-  font-size: 12px;
+  font-size: clamp(11px, 3vw, 12px);
   color: #666;
 }
 
 .qr-code-text {
   color: #00cc00;
-  font-size: 14px;
+  font-size: clamp(12px, 3.5vw, 14px);
   font-weight: 500;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+  .registration-container {
+    max-width: 95%;
+    padding: 12px;
+  }
+
+  .registration-content h1 {
+    font-size: clamp(16px, 4.5vw, 18px);
+  }
+
+  .registration-content h2 {
+    font-size: clamp(11px, 3vw, 12px);
+  }
+
+  input,
+  select,
+  .submit-btn {
+    font-size: clamp(12px, 3.5vw, 13px);
+    padding: 9px;
+  }
+
+  .confirmation-header h1 {
+    font-size: clamp(18px, 5vw, 22px);
+  }
+
+  .confirmation-title {
+    font-size: clamp(14px, 4.5vw, 16px);
+  }
+}
+
+/* Extra small devices (e.g., iPhone SE, smaller Android phones) */
+@media (max-width: 480px) {
+  .registration-container {
+    max-width: 90%;
+    padding: 10px;
+  }
+
+  .registration-content h1 {
+    font-size: clamp(14px, 4vw, 16px);
+  }
+
+  .registration-content h2 {
+    font-size: clamp(10px, 3vw, 11px);
+  }
+
+  input,
+  select,
+  .submit-btn {
+    font-size: clamp(11px, 3.5vw, 12px);
+    padding: 8px;
+  }
+
+  .confirmation-header h1 {
+    font-size: clamp(16px, 4.5vw, 20px);
+  }
+
+  .confirmation-details p {
+    font-size: clamp(11px, 3vw, 12px);
+  }
+}
+
+/* High-resolution displays (e.g., Retina, 2x/3x pixel density) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .registration-container {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Slightly sharper shadow */
+  }
+
+  input,
+  select {
+    border-width: 0.5px; /* Thinner borders for crisp rendering */
+  }
+
+  .qr-code {
+    border: 0.5px dashed #666; /* Thinner dashed border */
+  }
 }

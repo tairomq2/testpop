@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./RedirectCountdown.css";
 
 const RedirectCountdown = () => {
-  const [countdown, setCountdown] = useState(30);
+  const [countdown, setCountdown] = useState(15);
   const navigate = useNavigate();
 
   useEffect(() => {
