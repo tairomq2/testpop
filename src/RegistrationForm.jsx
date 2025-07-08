@@ -114,10 +114,12 @@ const RegistrationForm = () => {
               <label>
                 Date of birth (Ngày sinh):
                 <input
-                  type="date"
+                  type="text"
                   name="dateOfBirth"
+                  placeholder="dd/mm/yyyy"
                   value={formData.dateOfBirth}
                   onChange={handleChange}
+                  pattern="\d{2}/\d{2}/\d{4}"
                   required
                 />
               </label>
