@@ -241,3 +241,17 @@ select:focus {
     border: 0.5px dashed #666; /* Thinner dashed border */
   }
 }
+.date-input-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.date-part {
+  width: 40px;
+  text-align: center;
+}
+
+.date-part.year {
+  width: 60px;
+}

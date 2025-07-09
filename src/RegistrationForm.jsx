@@ -22,6 +22,28 @@ const RegistrationForm = () => {
     }));
   };
 
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+
+    // Chỉ cho phép nhập số
+    if (value && !/^\d*$/.test(value)) return;
+
+    // Cập nhật state từng phần
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      dateOfBirth: `${prev.day || ""}/${prev.month || ""}/${prev.year || ""}`,
+    }));
+
+    // Tự động chuyển focus sang ô tiếp theo khi đủ ký tự
+    if (value.length === e.target.maxLength) {
+      const nextInput = e.target.nextElementSibling?.nextElementSibling;
+      if (nextInput && nextInput.tagName === "INPUT") {
+        nextInput.focus();
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const randomOrder = Math.floor(Math.random() * 100) + 1;
@@ -71,13 +93,17 @@ const RegistrationForm = () => {
             <div className="form-group">
               <label>
                 Sales date (Ngày mua hàng):
-                <input
-                  type="date"
+                <select
                   name="salesDate"
                   value={formData.salesDate}
                   onChange={handleChange}
                   required
-                />
+                >
+                  <option value="">-- Chọn ngày --</option>
+                  <option value="09/07/2025">09/07/2025</option>
+                  <option value="10/07/2025">10/07/2025</option>
+                  <option value="11/07/2025">11/07/2025</option>
+                </select>
               </label>
             </div>
 
@@ -92,7 +118,7 @@ const RegistrationForm = () => {
                 >
                   <option value="">-- Chọn phiên --</option>
                   <option value="10:00 - 12:00">10:00 - 12:00</option>
-                  <option value="12:00 - 14:00">14:00 - 16:00</option>
+                  <option value="12:00 - 14:00">13:30 - 15:30</option>
                 </select>
               </label>
             </div>
@@ -111,18 +137,44 @@ const RegistrationForm = () => {
             </div>
 
             <div className="form-group">
-              <label>
-                Date of birth (Ngày sinh):
+              <label>Date of birth (Ngày sinh):</label>
+              <div className="date-input-group">
                 <input
                   type="text"
-                  name="dateOfBirth"
-                  placeholder="dd/mm/yyyy"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  pattern="\d{2}/\d{2}/\d{4}"
+                  name="day"
+                  placeholder="dd"
+                  maxLength="2"
+                  value={formData.day || ""}
+                  onChange={handleDateChange}
+                  pattern="\d{2}"
                   required
+                  className="date-part"
                 />
-              </label>
+                <span>/</span>
+                <input
+                  type="text"
+                  name="month"
+                  placeholder="mm"
+                  maxLength="2"
+                  value={formData.month || ""}
+                  onChange={handleDateChange}
+                  pattern="\d{2}"
+                  required
+                  className="date-part"
+                />
+                <span>/</span>
+                <input
+                  type="text"
+                  name="year"
+                  placeholder="yyyy"
+                  maxLength="4"
+                  value={formData.year || ""}
+                  onChange={handleDateChange}
+                  pattern="\d{4}"
+                  required
+                  className="date-part year"
+                />
+              </div>
             </div>
 
             <div className="form-group">
