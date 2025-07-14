@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký Tham Gia</title>
+    <style>
+      body {
+        background: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+      .ConScreen {
+        padding: 20px;
+      }
+      .ConFields {
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 10px;
+      }
+      .dvLeft img {
+        width: 100%;
+      }
+      .dvRight .TieuDe {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      .dvField1 {
+        margin-bottom: 8px;
+      }
+      .dvField1 div:first-child {
+        font-size: 18px;
+        padding-left: 5px;
+        margin-bottom: 3px;
+      }
+      .MySelect,
+      .myTextBox {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #da253475;
+        border-radius: 5px;
+        background-color: white;
+        color: #121212;
+      }
+      table input {
+        width: 80% !important;
+      }
+      #ckbDongY {
+        width: 23px;
+        height: 23px;
+      }
+      #dvConCaptcha img {
+        height: 40px;
+        border-radius: 10px;
+        margin-top: -25px;
+      }
+      #txtCaptcha {
+        width: 110px !important;
+        margin-top: -10px;
+      }
+      .MyButton {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f89d17;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .form-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .form-container {
+        padding: 20px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post" action="./popmart" id="ctl01">
+      <div class="aspNetHidden">
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" />
+        <input
+          type="hidden"
+          name="__VIEWSTATEGENERATOR"
+          id="__VIEWSTATEGENERATOR"
+          value="AFEEA4A2"
+        />
+        <input
+          type="hidden"
+          name="__EVENTVALIDATION"
+          id="__EVENTVALIDATION"
+          value=""
+        />
+      </div>
+      <div class="ConScreen">
+        <div id="dvConFields" class="ConFields">
+          <div style="padding: 10px">
+            <div id="dvLeft" class="dvLeft">
+              <img src="/images/Logo.jpg" alt="Logo" />
+            </div>
+            <div class="dvRight">
+              <div
+                id="dvConXacNhan"
+                class="ConXacNhan"
+                style="position: sticky; z-index: 9999"
+              >
+                <div id="dvConXacNhan_Content">
+                  <div class="TieuDe">ĐĂNG KÝ THAM GIA</div>
+                  <div>
+                    <div class="dvField1">
+                      <div>Sales date (Ngày bán hàng)</div>
+                      <select
+                        name="slNgayBanHang"
+                        id="slNgayBanHang"
+                        class="MySelect"
+                      >
+                        <option value="12">16/07/2025</option>
+                        <option value="13">17/07/2025</option>
+                        <option value="14">18/07/2025</option>
+                        <option selected="selected" value="">-- Chọn --</option>
+                      </select>
+                      <div
+                        id="dvGhiChuNgayBanHang"
+                        style="
+                          text-align: left;
+                          padding-left: 10px;
+                          margin-top: 3px;
+                          font-weight: bold;
+                          font-style: italic;
+                          font-size: 16px;
+                        "
+                      >
+                        MUST HAVE HOT ITEMS
+                      </div>
+                    </div>
+                    <div class="dvField1">
+                      <div>Session (Phiên)</div>
+                      <select name="slPhien" id="slPhien" class="MySelect">
+                        <option value="28">session 1 (10:00 - 12:00)</option>
+                        <option value="29">session 2 (13:30 - 15:30)</option>
+                        <option value="">-- Chọn --</option>
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    id="dvFields"
+                    style="width: 100%; text-align: left; margin-top: 15px"
+                  >
+                    <div class="dvField1">
+                      <div>Full name (Họ tên)</div>
+                      <input
+                        id="txtHoTen"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>Date of birth (Ngày Sinh)</div>
+                      <table>
+                        <tr>
+                          <td>
+                            <input
+                              id="txtNgaySinh_Ngay"
+                              placeholder="Ngày"
+                              type="number"
+                              class="myTextBox txtField1"
+                              autocomplete="off"
+                            />
+                          </td>
+                          <td style="padding: 3px; color: #939393">/</td>
+                          <td>
+                            <input
+                              id="txtNgaySinh_Thang"
+                              placeholder="Tháng"
+                              type="number"
+                              class="myTextBox txtField1"
+                              autocomplete="off"
+                            />
+                          </td>
+                          <td style="padding: 3px; color: #939393">/</td>
+                          <td>
+                            <input
+                              id="txtNgaySinh_Nam"
+                              placeholder="Năm"
+                              type="number"
+                              class="myTextBox txtField1"
+                              autocomplete="off"
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>Phone number (Số điện thoại)</div>
+                      <input
+                        id="txtSoDienThoai"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>Email</div>
+                      <input
+                        id="txtEmail"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>ID Card/Passport (CCCD/Hộ chiếu)</div>
+                      <input
+                        id="txtCCCD"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <table style="font-size: 17px; line-height: 23px">
+                        <tr>
+                          <td>
+                            <input
+                              id="ckbDongY"
+                              type="checkbox"
+                              style="width: 23px; height: 23px"
+                            />
+                          </td>
+                          <td style="font-weight: bold; text-align: left">
+                            <div>
+                              Tôi đã đọc và đồng ý với
+                              <a
+                                href="https://popmartbanahills.xspin.live/files/HOT_ITEM_T_C_updated_3_Jul.pdf"
+                                target="_blank"
+                                style="color: #f89d17"
+                                >Thể lệ chương trình</a
+                              >
+                            </div>
+                            <div style="margin-top: 4px">
+                              I have read and agree to the
+                              <a
+                                href="https://popmartbanahills.xspin.live/files/HOT_ITEM_T_C_updated_3_Jul.pdf"
+                                target="_blank"
+                                style="color: #f89d17"
+                                >Event Terms & Conditions</a
+                              >
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div
+                      class="dvField1"
+                      style="margin-top: 8px; text-align: left"
+                    >
+                      <div id="dvConCaptcha" style="margin-top: 10px">
+                        <table style="width: 100%">
+                          <tr>
+                            <td
+                              id="dvCaptcha"
+                              style="width: 100px; vertical-align: bottom"
+                            >
+                              <img
+                                src="/images/captcha/638880953986076388.jpg"
+                                style="
+                                  height: 40px;
+                                  border-radius: 10px;
+                                  margin-top: -25px;
+                                "
+                              />
+                            </td>
+                            <td style="width: 70px">
+                              <input
+                                type="text"
+                                id="txtCaptcha"
+                                placeholder="Nhập captcha (*)"
+                                class="myTextBox"
+                                style="
+                                  width: 110px !important;
+                                  border: 1px solid #da253475;
+                                "
+                                autocomplete="off"
+                              />
+                            </td>
+                            <td style="text-align: left">
+                              <img
+                                src="/images/iconRefresh.png"
+                                style="
+                                  height: 38px;
+                                  cursor: pointer;
+                                  margin-top: -3px;
+                                  margin-left: 5px;
+                                "
+                                onclick="LoadCaptcha()"
+                              />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    id="dvDangKyThamDu"
+                    style="text-align: center; padding: 10px; margin-top: 10px"
+                  >
+                    <a
+                      id="btDangKyThamGia"
+                      onclick="DangKyThamDu()"
+                      class="MyButton"
+                      style="margin-top: 3px"
+                      >Đăng ký</a
+                    >
+                  </div>
+                  <div
+                    id="dvLoading"
+                    style="
+                      text-align: center;
+                      padding: 10px;
+                      margin-top: 5px;
+                      display: none;
+                    "
+                  >
+                    <img src="images/Loading_icon.gif" style="width: 33px" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-popup" id="dvThongBao" style="display: none">
+        <div
+          class="form-container"
+          style="background: #ffffff; color: #f94c4c; text-align: center"
+        >
+          <div class="form-container-close">
+            <img
+              style="
+                width: 19px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-right: 3px;
+              "
+              src="images/iconClose.png"
+              onclick="CloseThongBao()"
+            />
+          </div>
+          <div
+            id="dvNoiDungThongBao"
+            style="
+              margin-top: 50px;
+              padding: 20px 10px;
+              font-weight: bold;
+              font-size: 18px;
+            "
+          >
+            <div>Đã hết số lượng đăng ký phiên này!</div>
+            <div style="font-style: italic; margin-top: 5px">
+              This session is full!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-popup" id="dvTrungThuong">
+        <div
+          id="dvConTrungThuong"
+          class="form-container"
+          style="
+            background-image: -webkit-linear-gradient(
+              57deg,
+              #66c16a 0%,
+              #baa975 100%,
+              rgb(17 164 26) 100%
+            );
+            color: #ffffff;
+            text-align: center;
+          "
+        >
+          <div class="form-container-close">
+            <img
+              src="images/iCon-Close.png"
+              class="form-close"
+              style="width: 30px; cursor: pointer; opacity: 0.7"
+              onclick="closeTrungThuong()"
+            />
+          </div>
+          <div
+            id="dvNoiDungTrungThuong"
+            style="font-weight: bold; font-size: 25px; height: 200px"
+          ></div>
+        </div>
+      </div>
+      <div class="form-popup" id="dvPopupTraCuu">
+        <div
+          id="dvConPopupTraCuu"
+          class="form-container"
+          style="
+            background-image: -webkit-linear-gradient(
+              57deg,
+              #f3f3f3 0%,
+              #ffffff 100%,
+              rgb(17 164 26) 100%
+            );
+            color: #ffffff;
+            text-align: center;
+          "
+        >
+          <div class="form-container-close">
+            <input
+              class="form-close"
+              value="X"
+              type="button"
+              onclick="closePopupTraCuu()"
+            />
+          </div>
+          <div
+            id="dvNoiDungPopupTraCuu"
+            style="font-weight: bold; font-size: 25px; height: 200px"
+          >
+            <table>
+              <tr>
+                <td>
+                  <input
+                    id="txtSoDienThoai_TraCuu"
+                    type="text"
+                    class="myTextBox"
+                    style="padding: 5px 7px; width: 160px; font-size: 18px"
+                    placeholder="Số điện thoại"
+                  />
+                </td>
+                <td>
+                  <input
+                    onclick="LoadTraCuu()"
+                    id="btTim_TraCuu"
+                    type="button"
+                    value="Tìm"
+                    class="MyButton"
+                  />
+                </td>
+              </tr>
+            </table>
+            <div
+              id="dvThongTinTraCuu"
+              style="
+                color: #6d6d6d;
+                font-size: 17px;
+                margin-top: 10px;
+                max-height: 250px;
+                overflow: auto;
+              "
+            >
+              Danh sách các mảnh ghép bạn đã nhận được
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="dvLoadGif" style="display: none"></div>
+    </form>
+    <script>
+      function GenQRImage(idPhien, MaThamDu) {
+        var GiaTri = MaThamDu;
+        var NoiDungHienBenDuoi = MaThamDu;
+        $.ajax({
+          type: "POST",
+          url: "/DangKy.aspx/GenQRImage",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data:
+            "{GiaTri: '" +
+            GiaTri +
+            "',NoiDungHienBenDuoi: '" +
+            NoiDungHienBenDuoi +
+            "'}",
+          success: function (datas) {
+            if (datas.d != "") {
+              var urlTaiVe = datas.d;
+              document.getElementById("qrdl").href = urlTaiVe;
+              $("#qrcode").html(
+                "<img src='" + datas.d + "' style='width:150px' />"
+              );
+              $("#dvTaoMaQR").css("display", "");
+              SendEmail(idPhien, MaThamDu);
+            }
+          },
+          failure: function (response) {},
+        });
+      }
+      function SendEmail(idPhien, MaThamDu) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            if (xmlhttp.responseText.trim() == "True") {
+            }
+          }
+        };
+        xmlhttp.open(
+          "GET",
+          "/Ajax.aspx?Action=SendEmail&idPhien=" +
+            idPhien +
+            "&MaThamDu=" +
+            MaThamDu,
+          true
+        );
+        xmlhttp.send();
+      }
+    </script>
+  </body>
+</html>
