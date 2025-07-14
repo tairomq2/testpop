@@ -1,257 +1,306 @@
-/* General reset for consistency across devices */
-* {
+.body {
+  background: #f2f2f2;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.registration-wrapper {
+.ConScreen {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f7fa;
+  padding: 20px 0;
+}
+
+.ConFields {
+  overflow: hidden;
+}
+
+.form-container {
   padding: 10px;
-  padding-bottom: env(
-    safe-area-inset-bottom
-  ); /* Support for iPhone notch and Android navigation bar */
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  width: 400px;
+  margin: 0 auto;
 }
 
-/* Ensure container respects safe areas */
-.registration-container {
-  max-width: 450px;
-  width: 100%;
-  padding: 15px;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  font-family: "Inter", Arial, sans-serif;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Header styles */
-.registration-content h1 {
-  color: #ff4d7d;
-  text-align: center;
-  margin-bottom: 5px;
-  font-size: clamp(18px, 5vw, 20px); /* Responsive font size */
-  font-weight: 600;
-}
-
-.registration-content h2 {
-  color: #333;
+.dvLeft {
   text-align: center;
   margin-bottom: 15px;
-  font-size: clamp(12px, 3.5vw, 14px);
-  font-weight: 400;
 }
 
-/* Form group styling */
-.form-group {
-  margin-bottom: 12px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #444;
-  font-size: clamp(12px, 3.5vw, 13px);
-}
-
-/* Input and select styling */
-input,
-select {
-  width: 100%;
-  padding: 10px; /* Increased padding for touch-friendliness */
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: clamp(13px, 4vw, 14px);
-  transition: border-color 0.2s ease-in-out;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #ff4d7d;
-  box-shadow: 0 0 4px rgba(255, 77, 125, 0.3);
-}
-
-/* Submit button styling */
-.submit-btn {
-  background-color: #ff4d7d;
+.logo-text {
+  font-size: 55px;
+  font-weight: bold;
   color: white;
-  border: none;
-  padding: 12px; /* Increased padding for touch targets */
-  font-size: clamp(13px, 4vw, 14px);
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.2s ease-in-out;
-  margin-top: 10px;
-  min-height: 44px; /* Minimum touch target size */
-}
-
-.submit-btn:hover {
-  background-color: #e6456e;
-}
-
-/* Confirmation View Styles */
-.confirmation {
   text-align: center;
-  padding: 20px;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-.confirmation-header h1 {
-  background-color: #ff0000;
-  color: white;
-  padding: 12px;
-  margin: -15px -20px 20px -20px;
-  font-size: clamp(20px, 6vw, 24px);
-  font-weight: 700;
-}
-
-.confirmation-title {
-  color: #00cc00;
-  font-size: clamp(16px, 5vw, 18px);
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.confirmation-details {
-  border: 2px solid #ff0000;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 30px 15px;
+  background-color: red;
   border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.confirmation-details p {
-  margin: 8px 0;
-  font-size: clamp(12px, 3.5vw, 14px);
+.TieuDe {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
   color: #333;
-  text-align: left;
 }
 
-.confirmation-details p::after {
-  content: attr(data-value);
-  color: #ff0000;
+.dvField1 {
+  margin-bottom: 10px;
+}
+
+.label {
+  text-align: left;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: #444;
+}
+
+.MySelect {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background: #fff;
+}
+
+.note {
+  text-align: left;
+  padding-left: 10px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 16px;
+  color: #f89d17;
+}
+
+.date-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.date-table td {
+  padding: 0 5px;
+  vertical-align: middle;
+}
+
+.date-separator {
+  color: #939393;
+  font-size: 20px;
+  width: 10px;
+  text-align: center;
+}
+
+.date-input {
+  width: 80px !important;
+}
+
+.date-table input[name="txtNgaySinh_Nam"] {
+  width: 100px !important;
+}
+
+.myTextBox,
+.txtField1 {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #da2534;
+  color: #121212;
+  background-color: #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.terms-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.terms-text {
+  font-weight: bold;
+  text-align: left;
+  font-size: 16px;
+  line-height: 20px;
+  color: #333;
+}
+
+.terms-link {
+  color: #f89d17;
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+.captcha-container {
+  margin-top: 10px;
+}
+
+.captcha-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.captcha-image {
+  width: 100px;
+  vertical-align: middle;
+}
+
+.captcha-text {
+  width: 100px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.captcha-input {
+  width: 120px;
+  padding-left: 5px;
+}
+
+.captcha-input-field {
+  width: 110px !important;
   margin-left: 5px;
 }
 
-.qr-code-placeholder {
-  margin-top: 20px;
-}
-
-.qr-code {
-  width: 120px;
-  height: 120px;
-  background-color: #eee;
-  margin: 0 auto 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px dashed #666;
-  font-size: clamp(11px, 3vw, 12px);
-  color: #666;
-}
-
-.qr-code-text {
-  color: #00cc00;
-  font-size: clamp(12px, 3.5vw, 14px);
-  font-weight: 500;
-}
-
-/* Media Queries for Mobile Devices */
-@media (max-width: 768px) {
-  .registration-container {
-    max-width: 95%;
-    padding: 12px;
-  }
-
-  .registration-content h1 {
-    font-size: clamp(16px, 4.5vw, 18px);
-  }
-
-  .registration-content h2 {
-    font-size: clamp(11px, 3vw, 12px);
-  }
-
-  input,
-  select,
-  .submit-btn {
-    font-size: clamp(12px, 3.5vw, 13px);
-    padding: 9px;
-  }
-
-  .confirmation-header h1 {
-    font-size: clamp(18px, 5vw, 22px);
-  }
-
-  .confirmation-title {
-    font-size: clamp(14px, 4.5vw, 16px);
-  }
-}
-
-/* Extra small devices (e.g., iPhone SE, smaller Android phones) */
-@media (max-width: 480px) {
-  .registration-container {
-    max-width: 90%;
-    padding: 10px;
-  }
-
-  .registration-content h1 {
-    font-size: clamp(14px, 4vw, 16px);
-  }
-
-  .registration-content h2 {
-    font-size: clamp(10px, 3vw, 11px);
-  }
-
-  input,
-  select,
-  .submit-btn {
-    font-size: clamp(11px, 3.5vw, 12px);
-    padding: 8px;
-  }
-
-  .confirmation-header h1 {
-    font-size: clamp(16px, 4.5vw, 20px);
-  }
-
-  .confirmation-details p {
-    font-size: clamp(11px, 3vw, 12px);
-  }
-}
-
-/* High-resolution displays (e.g., Retina, 2x/3x pixel density) */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .registration-container {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Slightly sharper shadow */
-  }
-
-  input,
-  select {
-    border-width: 0.5px; /* Thinner borders for crisp rendering */
-  }
-
-  .qr-code {
-    border: 0.5px dashed #666; /* Thinner dashed border */
-  }
-}
-.date-input-group {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.date-part {
+.captcha-refresh {
   width: 40px;
-  text-align: center;
+  text-align: left;
 }
 
-.date-part.year {
-  width: 60px;
+.refresh-icon {
+  font-size: 24px;
+  color: #da2534;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.refresh-icon:hover {
+  transform: rotate(90deg);
+}
+
+.submit-container {
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 15px;
+}
+
+.MyButton {
+  background-color: #da2534;
+  color: #fff;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.MyButton:hover {
+  background-color: #b81f2a;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.loading-container img {
+  width: 30px;
+}
+
+.qr-code-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Updated styles for success screen */
+.success-title {
+  color: #4caf50; /* Green color for success title */
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.success-details {
+  border: 1px solid #da2534; /* Red border from the image */
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: #da2534; /* Red text color for details */
+  font-weight: bold;
+}
+
+.success-details .success-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.success-details .success-label {
+  text-align: left;
+  flex-basis: 60%; /* Adjust as needed */
+}
+
+.success-details .success-value {
+  text-align: right;
+  flex-basis: 40%; /* Adjust as needed */
+}
+
+.qr-code-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.qr-placeholder {
+  width: 150px; /* Adjust size as needed */
+  height: 150px; /* Adjust size as needed */
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 16px;
+  color: #555;
+  border-radius: 5px;
+}
+
+.qr-download {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.qr-download a {
+  font-weight: bold;
+  color: #4b9f4f; /* Green color for download link */
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.qr-download a:hover {
+  text-decoration: underline;
 }

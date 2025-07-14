@@ -1,0 +1,351 @@
+/* RegistrationForm.module.scss */
+
+// Variables (có thể điều chỉnh)
+$primary-red: #da2534;
+$secondary-orange: #f89d17;
+$text-color: #121212;
+$placeholder-color: #939393;
+$border-color: rgba($primary-red, 0.46); // #da253475
+
+.body {
+  margin: 0;
+  font-family: sans-serif;
+  // background: #f2f2f2; // Đã đặt inline trong JSX, có thể bỏ nếu muốn
+}
+
+.aspNetHidden {
+  display: none; // Ẩn các trường ẩn của ASP.NET
+}
+
+.ConScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; // Đảm bảo chiếm toàn bộ chiều cao màn hình
+  padding: 20px;
+  box-sizing: border-box; // Đảm bảo padding không làm tăng kích thước tổng thể
+}
+
+.ConFields {
+  // overflow: hidden; /* HTML gốc có, nhưng có thể gây vấn đề với scroll nếu form dài */
+  width: 100%;
+  max-width: 600px; /* Điều chỉnh độ rộng tối đa của form */
+}
+
+.mainContentBox {
+  padding: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex; // Để logo và phần form nằm cạnh nhau
+  flex-wrap: wrap; // Cho phép xuống dòng trên màn hình nhỏ
+}
+
+.dvLeft {
+  flex: 0 0 100%; // Logo chiếm toàn bộ chiều rộng
+  margin-bottom: 20px; // Khoảng cách dưới logo
+  @media (min-width: 768px) {
+    flex: 0 0 30%; // Logo chiếm 30% trên màn hình lớn hơn
+    padding-right: 20px;
+    margin-bottom: 0;
+  }
+}
+
+.logoImage {
+  width: 100%;
+  height: auto;
+  display: block; // Loại bỏ khoảng trắng dưới ảnh
+}
+
+.dvRight {
+  flex: 0 0 100%; // Form chiếm toàn bộ chiều rộng còn lại
+  @media (min-width: 768px) {
+    flex: 0 0 70%; // Form chiếm 70% trên màn hình lớn hơn
+  }
+}
+
+.ConXacNhan {
+  // z-index: 9999; /* Removed, typically handled by layout or specific modals */
+  // position: sticky; /* Removed, not suitable for this general container */
+  width: 100%;
+}
+
+.TieuDe {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: $primary-red;
+  text-transform: uppercase;
+}
+
+.dvField1 {
+  margin-top: 15px; // Khoảng cách giữa các nhóm trường
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.fieldLabel {
+  text-align: left;
+  padding-left: 5px;
+  margin-bottom: 3px;
+  font-size: 18px;
+  font-weight: 500;
+  color: $text-color;
+}
+
+.MySelect,
+.myTextBox {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  font-size: 16px;
+  color: $text-color;
+  background-color: white;
+  box-sizing: border-box; // Đảm bảo padding không làm tăng width
+  -webkit-appearance: none; // Loại bỏ style mặc định của trình duyệt cho select/input
+  -moz-appearance: none;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-red;
+    box-shadow: 0 0 0 2px rgba($primary-red, 0.2);
+  }
+}
+
+.MySelect {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23da2534' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+}
+
+.noteText {
+  text-align: left;
+  padding-left: 10px;
+  margin-top: 3px;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 16px;
+  color: $primary-red; // Giữ màu đỏ như HTML gốc
+}
+
+.dvFields {
+  width: 100%;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.datePartInput {
+  width: 80px !important; // Cần thiết để các input ngày tháng nhỏ gọn
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.dateSeparator {
+  padding: 3px;
+  color: $placeholder-color;
+  vertical-align: middle;
+}
+
+.termsTable {
+  font-size: 17px;
+  line-height: 23px;
+  width: 100%; // Đảm bảo bảng chiếm hết chiều rộng
+  margin-top: 8px; // Khoảng cách từ trường trước
+
+  td {
+    padding: 0 5px;
+    vertical-align: top; // Căn trên cho nội dung cell
+    &:first-child {
+      width: 30px; // Đủ rộng cho checkbox
+      text-align: center;
+    }
+  }
+}
+
+.termsCheckbox {
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.termsText {
+  font-weight: bold;
+  text-align: left;
+  color: $text-color;
+}
+
+.termsEnglish {
+  margin-top: 4px;
+}
+
+.termsLink {
+  color: $secondary-orange;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.captchaContainer {
+  margin-top: 10px;
+  text-align: left; // Căn trái nội dung trong container
+}
+
+.captchaTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    padding: 0; // Loại bỏ padding mặc định của td
+    vertical-align: middle; // Căn giữa theo chiều dọc
+  }
+}
+
+.captchaImageCell {
+  width: 100px; // Chiều rộng cố định cho ảnh captcha
+  text-align: center;
+}
+
+.captchaImage {
+  height: 40px;
+  border-radius: 10px;
+  margin-top: -25px; // Điều chỉnh vị trí để căn chỉnh với input
+  vertical-align: middle;
+}
+
+.captchaInputCell {
+  width: 70px; // Chiều rộng cố định cho input captcha
+}
+
+.captchaInputWrapper {
+  text-align: left;
+  margin-top: -10px; // Điều chỉnh vị trí để căn chỉnh với ảnh
+}
+
+.captchaRefreshCell {
+  text-align: left; // Căn trái icon refresh
+}
+
+.captchaRefreshIcon {
+  height: 38px;
+  cursor: pointer;
+  margin-top: -3px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.registerButtonContainer {
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.MyButton {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: $primary-red;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-red, 10%);
+  }
+}
+
+.loadingContainer {
+  text-align: center;
+  padding: 10px;
+  margin-top: 5px;
+  display: none; // Mặc định ẩn, điều khiển bằng React state
+}
+
+.loadingIcon {
+  width: 33px;
+}
+
+.qrCodeSection {
+  display: none; // Mặc định ẩn, điều khiển bằng React state
+  text-align: center;
+  margin-top: 20px;
+}
+
+.qrCodeInput {
+  width: 80%;
+  display: none;
+}
+
+#qrcode {
+  margin-top: 15px; // Khoảng cách trên QR code
+}
+
+.qrDownloadText {
+  text-align: center;
+  margin-top: 12%; // Dựa trên HTML gốc
+}
+
+.qrDownloadLink {
+  font-weight: bold;
+  color: #4b9f4f; // Màu xanh lá cây như HTML gốc
+  font-size: 17px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Styles for Popups (kept inline in JSX for simplicity of showing/hiding) */
+.formPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; // Dùng flexbox để căn giữa popup
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.formContainer {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.formContainerClose {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.formCloseButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #939393;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+}
