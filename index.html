@@ -6,69 +6,108 @@
     <title>Đăng Ký Tham Gia</title>
     <style>
       body {
-        background: #f2f2f2;
+        background: #f0f2f5;
         font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
       }
       .ConScreen {
         padding: 20px;
-      }
-      .ConFields {
-        overflow: hidden;
-        background: #ffffff;
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        padding: 10px;
-      }
-      .dvLeft img {
+        max-width: 600px;
         width: 100%;
       }
+      .ConFields {
+        background: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        overflow: hidden;
+      }
+      .dvLeft {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .dvLeft .logo-text {
+        background-color: red;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 55px;
+        letter-spacing: 1px;
+        padding: 30px 15px;
+        text-transform: uppercase;
+      }
       .dvRight .TieuDe {
-        font-size: 24px;
+        font-size: 28px;
         font-weight: bold;
         text-align: center;
-        margin-bottom: 15px;
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
       }
       .dvField1 {
-        margin-bottom: 8px;
+        margin-bottom: 15px;
       }
       .dvField1 div:first-child {
-        font-size: 18px;
+        font-size: 16px;
+        color: #555;
         padding-left: 5px;
-        margin-bottom: 3px;
+        margin-bottom: 5px;
+        font-weight: 500;
       }
       .MySelect,
       .myTextBox {
         width: 100%;
-        padding: 5px;
-        border: 1px solid #da253475;
-        border-radius: 5px;
-        background-color: white;
-        color: #121212;
+        padding: 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #333;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+      .MySelect:focus,
+      .myTextBox:focus {
+        border-color: #f89d17;
+        outline: none;
       }
       table input {
         width: 80% !important;
       }
       #ckbDongY {
-        width: 23px;
-        height: 23px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
       }
       #dvConCaptcha img {
         height: 40px;
-        border-radius: 10px;
-        margin-top: -25px;
+        border-radius: 6px;
+        margin-top: -20px;
       }
       #txtCaptcha {
-        width: 110px !important;
+        width: 120px !important;
         margin-top: -10px;
+        margin-left: 10px;
       }
       .MyButton {
         display: inline-block;
-        padding: 10px 20px;
+        padding: 12px 25px;
         background-color: #f89d17;
         color: white;
         text-decoration: none;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+      .MyButton:hover {
+        background-color: #e08c13;
       }
       .form-popup {
         display: none;
@@ -76,10 +115,69 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 1000;
       }
       .form-container {
-        padding: 20px;
+        padding: 25px;
         border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      #captchaCanvas {
+        display: none;
+      }
+      /* Success Popup Styles */
+      #dvSuccess {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(57deg, #66c16a 0%, #baa975 100%);
+        color: white;
+        text-align: center;
+        padding: 30px;
+        border-radius: 15px;
+        z-index: 1000;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      #dvSuccess .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 20px;
+        cursor: pointer;
+        filter: brightness(0) invert(1);
+      }
+      #dvSuccess .success-header {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+      #dvSuccess .success-details {
+        font-size: 14px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: left;
+        padding: 0 20px;
+      }
+      #dvSuccess .random-number {
+        font-size: 60px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      #dvSuccess .qr-code {
+        margin-top: 20px;
+      }
+      #dvSuccess .qr-code img {
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+        border: 2px solid #fff;
       }
     </style>
   </head>
@@ -104,7 +202,7 @@
         <div id="dvConFields" class="ConFields">
           <div style="padding: 10px">
             <div id="dvLeft" class="dvLeft">
-              <img src="/images/Logo.jpg" alt="Logo" />
+              <div class="logo-text">POP MART</div>
             </div>
             <div class="dvRight">
               <div
@@ -121,6 +219,7 @@
                         name="slNgayBanHang"
                         id="slNgayBanHang"
                         class="MySelect"
+                        required
                       >
                         <option value="12">16/07/2025</option>
                         <option value="13">17/07/2025</option>
@@ -143,10 +242,15 @@
                     </div>
                     <div class="dvField1">
                       <div>Session (Phiên)</div>
-                      <select name="slPhien" id="slPhien" class="MySelect">
+                      <select
+                        name="slPhien"
+                        id="slPhien"
+                        class="MySelect"
+                        required
+                      >
                         <option value="28">session 1 (10:00 - 12:00)</option>
                         <option value="29">session 2 (13:30 - 15:30)</option>
-                        <option value="">-- Chọn --</option>
+                        <option selected="selected" value="">-- Chọn --</option>
                         <option></option>
                       </select>
                     </div>
@@ -163,6 +267,7 @@
                         type="text"
                         class="myTextBox txtField1"
                         autocomplete="off"
+                        required
                       />
                     </div>
                     <div class="dvField1" style="margin-top: 8px">
@@ -171,11 +276,14 @@
                         <tr>
                           <td>
                             <input
-                              id="txtNgaySinh_Ngay"
+                              id="txtNgaySinh_Nay"
                               placeholder="Ngày"
                               type="number"
                               class="myTextBox txtField1"
                               autocomplete="off"
+                              required
+                              min="1"
+                              max="31"
                             />
                           </td>
                           <td style="padding: 3px; color: #939393">/</td>
@@ -186,6 +294,9 @@
                               type="number"
                               class="myTextBox txtField1"
                               autocomplete="off"
+                              required
+                              min="1"
+                              max="12"
                             />
                           </td>
                           <td style="padding: 3px; color: #939393">/</td>
@@ -196,6 +307,9 @@
                               type="number"
                               class="myTextBox txtField1"
                               autocomplete="off"
+                              required
+                              min="1900"
+                              max="2025"
                             />
                           </td>
                         </tr>
@@ -209,6 +323,8 @@
                         type="text"
                         class="myTextBox txtField1"
                         autocomplete="off"
+                        required
+                        pattern="[0-9]{10,11}"
                       />
                     </div>
                     <div class="dvField1" style="margin-top: 8px">
@@ -216,9 +332,10 @@
                       <input
                         id="txtEmail"
                         placeholder=""
-                        type="text"
+                        type="email"
                         class="myTextBox txtField1"
                         autocomplete="off"
+                        required
                       />
                     </div>
                     <div class="dvField1" style="margin-top: 8px">
@@ -229,6 +346,8 @@
                         type="text"
                         class="myTextBox txtField1"
                         autocomplete="off"
+                        required
+                        pattern="[0-9]{9,12}"
                       />
                     </div>
                     <div class="dvField1" style="margin-top: 8px">
@@ -239,6 +358,7 @@
                               id="ckbDongY"
                               type="checkbox"
                               style="width: 23px; height: 23px"
+                              required
                             />
                           </td>
                           <td style="font-weight: bold; text-align: left">
@@ -275,8 +395,15 @@
                               id="dvCaptcha"
                               style="width: 100px; vertical-align: bottom"
                             >
+                              <canvas
+                                id="captchaCanvas"
+                                width="100"
+                                height="40"
+                                style="border-radius: 10px; margin-top: -25px"
+                              ></canvas>
                               <img
-                                src="/images/captcha/638880953986076388.jpg"
+                                id="captchaImage"
+                                src=""
                                 style="
                                   height: 40px;
                                   border-radius: 10px;
@@ -295,6 +422,7 @@
                                   border: 1px solid #da253475;
                                 "
                                 autocomplete="off"
+                                required
                               />
                             </td>
                             <td style="text-align: left">
@@ -306,7 +434,7 @@
                                   margin-top: -3px;
                                   margin-left: 5px;
                                 "
-                                onclick="LoadCaptcha()"
+                                onclick="generateCaptcha()"
                               />
                             </td>
                           </tr>
@@ -316,11 +444,11 @@
                   </div>
                   <div
                     id="dvDangKyThamDu"
-                    style="text-align: center; padding: 10px; margin-top: 10px"
+                    style="text-align: center; padding: 10px; margin-top: 20px"
                   >
                     <a
                       id="btDangKyThamGia"
-                      onclick="DangKyThamDu()"
+                      onclick="DangKyThamDu(event)"
                       class="MyButton"
                       style="margin-top: 3px"
                       >Đăng ký</a
@@ -470,8 +598,72 @@
         </div>
       </div>
       <div id="dvLoadGif" style="display: none"></div>
+      <!-- Success Popup -->
+      <div id="dvSuccess" class="form-popup">
+        <div class="form-container">
+          <img
+            src="/images/iconClose.png"
+            class="close-btn"
+            onclick="closeSuccess()"
+            style="width: 20px; cursor: pointer"
+          />
+          <div class="success-header">Đăng ký thành công</div>
+          <div class="success-details" id="successDetails"></div>
+          <div class="random-number" id="randomNumber"></div>
+          <div class="qr-code" id="qrCode"></div>
+        </div>
+      </div>
     </form>
     <script>
+      // Generate a random captcha string
+      function generateCaptchaString(length = 6) {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+          );
+        }
+        return result;
+      }
+
+      // Draw a more readable captcha on canvas and convert to image
+      function generateCaptcha() {
+        const canvas = document.getElementById("captchaCanvas");
+        const ctx = canvas.getContext("2d");
+        const captchaText = generateCaptchaString();
+        const captchaImage = document.getElementById("captchaImage");
+
+        // Clear and set a clean background
+        ctx.fillStyle = "#ffffff"; // White background
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "bold 24px Arial"; // Larger, bold text
+        ctx.fillStyle = "#000000"; // Black text with corrected syntax
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Draw captcha text with minimal spacing and no rotation
+        const xOffset = canvas.width / 2;
+        const yOffset = canvas.height / 2;
+        for (let i = 0; i < captchaText.length; i++) {
+          ctx.fillText(
+            captchaText[i],
+            xOffset - (captchaText.length * 10) / 2 + i * 15,
+            yOffset
+          );
+        }
+
+        // Convert canvas to image and update src
+        captchaImage.src = canvas.toDataURL();
+        // Store captcha text for validation
+        sessionStorage.setItem("captchaText", captchaText);
+      }
+
+      // Load captcha on page load and when refresh is clicked
+      window.onload = function () {
+        generateCaptcha();
+      };
+
       function GenQRImage(idPhien, MaThamDu) {
         var GiaTri = MaThamDu;
         var NoiDungHienBenDuoi = MaThamDu;
@@ -522,6 +714,161 @@
           true
         );
         xmlhttp.send();
+      }
+
+      // Enhanced validation function
+      function DangKyThamDu(event) {
+        event.preventDefault(); // Prevent form submission for now
+        let isValid = true;
+        let errorMessages = [];
+
+        // Validate Sales Date
+        const salesDate = document.getElementById("slNgayBanHang").value;
+        if (!salesDate) {
+          isValid = false;
+          errorMessages.push("Vui lòng chọn Sales date (Ngày bán hàng)!");
+        }
+
+        // Validate Session
+        const session = document.getElementById("slPhien").value;
+        if (!session) {
+          isValid = false;
+          errorMessages.push("Vui lòng chọn Session (Phiên)!");
+        }
+
+        // Validate Full Name
+        const fullName = document.getElementById("txtHoTen").value.trim();
+        if (!fullName) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập Full name (Họ tên)!");
+        }
+
+        // Validate Date of Birth
+        const day = document.getElementById("txtNgaySinh_Nay").value;
+        const month = document.getElementById("txtNgaySinh_Thang").value;
+        const year = document.getElementById("txtNgaySinh_Nam").value;
+        if (!day || !month || !year) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập đầy đủ Date of birth (Ngày Sinh)!");
+        } else if (
+          day < 1 ||
+          day > 31 ||
+          month < 1 ||
+          month > 12 ||
+          year < 1900 ||
+          year > 2025
+        ) {
+          isValid = false;
+          errorMessages.push(
+            "Date of birth không hợp lệ (Ngày: 1-31, Tháng: 1-12, Năm: 1900-2025)!"
+          );
+        }
+
+        // Validate Phone Number
+        const phone = document.getElementById("txtSoDienThoai").value.trim();
+        if (!phone || !/^[0-9]{10,11}$/.test(phone)) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập Phone number hợp lệ (10-11 số)!");
+        }
+
+        // Validate Email
+        const email = document.getElementById("txtEmail").value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailPattern.test(email)) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập Email hợp lệ!");
+        }
+
+        // Validate ID Card/Passport
+        const idCard = document.getElementById("txtCCCD").value.trim();
+        if (!idCard || !/^[0-9]{9,12}$/.test(idCard)) {
+          isValid = false;
+          errorMessages.push(
+            "Vui lòng nhập ID Card/Passport hợp lệ (9-12 số)!"
+          );
+        }
+
+        // Validate Checkbox
+        const checkbox = document.getElementById("ckbDongY").checked;
+        if (!checkbox) {
+          isValid = false;
+          errorMessages.push("Vui lòng đồng ý với Thể lệ chương trình!");
+        }
+
+        // Validate Captcha
+        const userCaptcha = document.getElementById("txtCaptcha").value.trim();
+        const correctCaptcha = sessionStorage.getItem("captchaText");
+        if (!userCaptcha || userCaptcha !== correctCaptcha) {
+          isValid = false;
+          errorMessages.push("Captcha không đúng! Vui lòng thử lại.");
+          generateCaptcha(); // Refresh captcha on failure
+        }
+
+        // Display errors or proceed
+        if (!isValid) {
+          alert(errorMessages.join("\n"));
+        } else {
+          showSuccess();
+        }
+      }
+
+      // Show success popup with entered data and random number
+      function showSuccess() {
+        const salesDate = document.getElementById("slNgayBanHang").value;
+        const session = document.getElementById("slPhien").value;
+        const fullName = document.getElementById("txtHoTen").value.trim();
+        const day = document.getElementById("txtNgaySinh_Nay").value;
+        const month = document.getElementById("txtNgaySinh_Thang").value;
+        const year = document.getElementById("txtNgaySinh_Nam").value;
+        const phone = document.getElementById("txtSoDienThoai").value.trim();
+        const email = document.getElementById("txtEmail").value.trim();
+        const idCard = document.getElementById("txtCCCD").value.trim();
+        const randomNum = Math.floor(Math.random() * 100) + 1;
+
+        const details = `
+          Sales date (Ngày bán hàng): ${salesDate}<br>
+          Session (Phiên): ${session}<br>
+          Số thứ tự (Numerical order): #${randomNum}<br>
+          Full name (Họ tên): ${fullName}<br>
+          Date of birth (Ngày Sinh): ${day}/${month}/${year}<br>
+          Phone number (Số điện thoại): ${phone}<br>
+          Email: ${email}<br>
+          ID Card/Passport (CCCD/Hộ chiếu): ${idCard}<br>
+        `;
+        document.getElementById("successDetails").innerHTML = details;
+        document.getElementById("randomNumber").textContent = randomNum;
+        document.getElementById("dvSuccess").style.display = "block";
+        document.getElementById("dvConFields").style.display = "none"; // Hide form
+
+        // Generate a simple QR code placeholder
+        const qrCode = document.createElement("img");
+        qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${randomNum}`;
+        qrCode.style.width = "150px";
+        document.getElementById("qrCode").innerHTML = "";
+        document.getElementById("qrCode").appendChild(qrCode);
+      }
+
+      // Close success popup
+      function closeSuccess() {
+        document.getElementById("dvSuccess").style.display = "none";
+        document.getElementById("dvConFields").style.display = "block"; // Show form again
+        generateCaptcha(); // Refresh captcha for new attempt
+      }
+
+      function LoadCaptcha() {
+        generateCaptcha();
+      }
+      function CloseThongBao() {
+        document.getElementById("dvThongBao").style.display = "none";
+      }
+      function closeTrungThuong() {
+        document.getElementById("dvTrungThuong").style.display = "none";
+      }
+      function closePopupTraCuu() {
+        document.getElementById("dvPopupTraCuu").style.display = "none";
+      }
+      function LoadTraCuu() {
+        alert("Chức năng tìm kiếm chưa được triển khai!");
       }
     </script>
   </body>
