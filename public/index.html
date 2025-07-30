@@ -1,43 +1,875 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký Tham Gia</title>
+    <style>
+      body {
+        background: #f0f2f5;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .ConScreen {
+        padding: 20px;
+        max-width: 600px;
+        width: 100%;
+      }
+      .ConFields {
+        background: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        overflow: hidden;
+      }
+      .dvLeft {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .dvLeft .logo-text {
+        background-color: red;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 55px;
+        letter-spacing: 1px;
+        padding: 30px 15px;
+        text-transform: uppercase;
+      }
+      .dvRight .TieuDe {
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .dvField1 {
+        margin-bottom: 15px;
+      }
+      .dvField1 div:first-child {
+        font-size: 16px;
+        color: #555;
+        padding-left: 5px;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      .MySelect,
+      .myTextBox {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #333;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+      .MySelect:focus,
+      .myTextBox:focus {
+        border-color: #f89d17;
+        outline: none;
+      }
+      table input {
+        width: 80% !important;
+      }
+      #ckbDongY {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+      #dvConCaptcha img {
+        height: 40px;
+        border-radius: 6px;
+        margin-top: -20px;
+      }
+      #txtCaptcha {
+        width: 120px !important;
+        margin-top: -10px;
+        margin-left: 10px;
+      }
+      .MyButton {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #f89d17;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+      .MyButton:hover {
+        background-color: #e08c13;
+      }
+      .form-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+      }
+      .form-container {
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      #captchaCanvas {
+        display: none;
+      }
+      /* Success Popup Styles */
+      #dvSuccess {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(57deg, #66c16a 0%, #baa975 100%);
+        color: white;
+        text-align: center;
+        padding: 30px;
+        border-radius: 15px;
+        z-index: 1000;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      #dvSuccess .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 20px;
+        cursor: pointer;
+        filter: brightness(0) invert(1);
+      }
+      #dvSuccess .success-header {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+      #dvSuccess .success-details {
+        font-size: 14px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        text-align: left;
+        padding: 0 20px;
+      }
+      #dvSuccess .random-number {
+        font-size: 60px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 25px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      #dvSuccess .qr-code {
+        margin-top: 20px;
+      }
+      #dvSuccess .qr-code img {
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+        border: 2px solid #fff;
+      }
+    </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <form method="post" action="./popmart" id="ctl01">
+      <div class="aspNetHidden">
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" />
+        <input
+          type="hidden"
+          name="__VIEWSTATEGENERATOR"
+          id="__VIEWSTATEGENERATOR"
+          value="AFEEA4A2"
+        />
+        <input
+          type="hidden"
+          name="__EVENTVALIDATION"
+          id="__EVENTVALIDATION"
+          value=""
+        />
+      </div>
+      <div class="ConScreen">
+        <div id="dvConFields" class="ConFields">
+          <div style="padding: 10px">
+            <div id="dvLeft" class="dvLeft">
+              <div class="logo-text">POP MART</div>
+            </div>
+            <div class="dvRight">
+              <div
+                id="dvConXacNhan"
+                class="ConXacNhan"
+                style="position: sticky; z-index: 9999"
+              >
+                <div id="dvConXacNhan_Content">
+                  <div class="TieuDe">ĐĂNG KÝ THAM GIA</div>
+                  <div>
+                    <div class="dvField1">
+                      <div>Sales date (Ngày bán hàng)</div>
+                      <select
+                        name="slNgayBanHang"
+                        id="slNgayBanHang"
+                        class="MySelect"
+                        required
+                      >
+                        <option value="12">16/07/2025</option>
+                        <option value="13">17/07/2025</option>
+                        <option value="14">18/07/2025</option>
+                        <option selected="selected" value="">-- Chọn --</option>
+                      </select>
+                      <div
+                        id="dvGhiChuNgayBanHang"
+                        style="
+                          text-align: left;
+                          padding-left: 10px;
+                          margin-top: 3px;
+                          font-weight: bold;
+                          font-style: italic;
+                          font-size: 16px;
+                        "
+                      >
+                        MUST HAVE HOT ITEMS
+                      </div>
+                    </div>
+                    <div class="dvField1">
+                      <div>Session (Phiên)</div>
+                      <select
+                        name="slPhien"
+                        id="slPhien"
+                        class="MySelect"
+                        required
+                      >
+                        <option value="28">session 1 (10:00 - 12:00)</option>
+                        <option value="29">session 2 (13:30 - 15:30)</option>
+                        <option selected="selected" value="">-- Chọn --</option>
+                        <option></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div
+                    id="dvFields"
+                    style="width: 100%; text-align: left; margin-top: 15px"
+                  >
+                    <div class="dvField1">
+                      <div>Full name (Họ tên)</div>
+                      <input
+                        id="txtHoTen"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                        required
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>Date of birth (Ngày Sinh)</div>
+                      <table>
+                        <tr>
+                          <td>
+                            <input
+                              id="txtNgaySinh_Nay"
+                              placeholder="Ngày"
+                              type="number"
+                              class="myTextBox txtField1"
+                              autocomplete="off"
+                              required
+                              min="1"
+                              max="31"
+                            />
+                          </td>
+                          <td style="padding: 3px; color: #939393">/</td>
+                          <td>
+                            <input
+                              id="txtNgaySinh_Thang"
+                              placeholder="Tháng"
+                              type="number"
+                              class="myTextBox txtField1"
+                              autocomplete="off"
+                              required
+                              min="1"
+                              max="12"
+                            />
+                          </td>
+                          <td style="padding: 3px; color: #939393">/</td>
+                          <td>
+                            <input
+                              id="txtNgaySinh_Nam"
+                              placeholder="Năm"
+                              type="number"
+                              class="myTextBox txtField1"
+                              autocomplete="off"
+                              required
+                              min="1900"
+                              max="2025"
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>Phone number (Số điện thoại)</div>
+                      <input
+                        id="txtSoDienThoai"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                        required
+                        pattern="[0-9]{10,11}"
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>Email</div>
+                      <input
+                        id="txtEmail"
+                        placeholder=""
+                        type="email"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                        required
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <div>ID Card/Passport (CCCD/Hộ chiếu)</div>
+                      <input
+                        id="txtCCCD"
+                        placeholder=""
+                        type="text"
+                        class="myTextBox txtField1"
+                        autocomplete="off"
+                        required
+                        pattern="[0-9]{9,12}"
+                      />
+                    </div>
+                    <div class="dvField1" style="margin-top: 8px">
+                      <table style="font-size: 17px; line-height: 23px">
+                        <tr>
+                          <td>
+                            <input
+                              id="ckbDongY"
+                              type="checkbox"
+                              style="width: 23px; height: 23px"
+                              required
+                            />
+                          </td>
+                          <td style="font-weight: bold; text-align: left">
+                            <div>
+                              Tôi đã đọc và đồng ý với
+                              <a
+                                href="https://popmartbanahills.xspin.live/files/HOT_ITEM_T_C_updated_3_Jul.pdf"
+                                target="_blank"
+                                style="color: #f89d17"
+                                >Thể lệ chương trình</a
+                              >
+                            </div>
+                            <div style="margin-top: 4px">
+                              I have read and agree to the
+                              <a
+                                href="https://popmartbanahills.xspin.live/files/HOT_ITEM_T_C_updated_3_Jul.pdf"
+                                target="_blank"
+                                style="color: #f89d17"
+                                >Event Terms & Conditions</a
+                              >
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div
+                      class="dvField1"
+                      style="margin-top: 8px; text-align: left"
+                    >
+                      <div id="dvConCaptcha" style="margin-top: 10px">
+                        <table style="width: 100%">
+                          <tr>
+                            <td
+                              id="dvCaptcha"
+                              style="width: 100px; vertical-align: bottom"
+                            >
+                              <canvas
+                                id="captchaCanvas"
+                                width="100"
+                                height="40"
+                                style="border-radius: 10px; margin-top: -25px"
+                              ></canvas>
+                              <img
+                                id="captchaImage"
+                                src=""
+                                style="
+                                  height: 40px;
+                                  border-radius: 10px;
+                                  margin-top: -25px;
+                                "
+                              />
+                            </td>
+                            <td style="width: 70px">
+                              <input
+                                type="text"
+                                id="txtCaptcha"
+                                placeholder="Nhập captcha (*)"
+                                class="myTextBox"
+                                style="
+                                  width: 110px !important;
+                                  border: 1px solid #da253475;
+                                "
+                                autocomplete="off"
+                                required
+                              />
+                            </td>
+                            <td style="text-align: left">
+                              <img
+                                src="/images/iconRefresh.png"
+                                style="
+                                  height: 38px;
+                                  cursor: pointer;
+                                  margin-top: -3px;
+                                  margin-left: 5px;
+                                "
+                                onclick="generateCaptcha()"
+                              />
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    id="dvDangKyThamDu"
+                    style="text-align: center; padding: 10px; margin-top: 20px"
+                  >
+                    <a
+                      id="btDangKyThamGia"
+                      onclick="DangKyThamDu(event)"
+                      class="MyButton"
+                      style="margin-top: 3px"
+                      >Đăng ký</a
+                    >
+                  </div>
+                  <div
+                    id="dvLoading"
+                    style="
+                      text-align: center;
+                      padding: 10px;
+                      margin-top: 5px;
+                      display: none;
+                    "
+                  >
+                    <img src="images/Loading_icon.gif" style="width: 33px" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-popup" id="dvThongBao" style="display: none">
+        <div
+          class="form-container"
+          style="background: #ffffff; color: #f94c4c; text-align: center"
+        >
+          <div class="form-container-close">
+            <img
+              style="
+                width: 19px;
+                cursor: pointer;
+                margin-top: 3px;
+                margin-right: 3px;
+              "
+              src="images/iconClose.png"
+              onclick="CloseThongBao()"
+            />
+          </div>
+          <div
+            id="dvNoiDungThongBao"
+            style="
+              margin-top: 50px;
+              padding: 20px 10px;
+              font-weight: bold;
+              font-size: 18px;
+            "
+          >
+            <div>Đã hết số lượng đăng ký phiên này!</div>
+            <div style="font-style: italic; margin-top: 5px">
+              This session is full!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-popup" id="dvTrungThuong">
+        <div
+          id="dvConTrungThuong"
+          class="form-container"
+          style="
+            background-image: -webkit-linear-gradient(
+              57deg,
+              #66c16a 0%,
+              #baa975 100%,
+              rgb(17 164 26) 100%
+            );
+            color: #ffffff;
+            text-align: center;
+          "
+        >
+          <div class="form-container-close">
+            <img
+              src="images/iCon-Close.png"
+              class="form-close"
+              style="width: 30px; cursor: pointer; opacity: 0.7"
+              onclick="closeTrungThuong()"
+            />
+          </div>
+          <div
+            id="dvNoiDungTrungThuong"
+            style="font-weight: bold; font-size: 25px; height: 200px"
+          ></div>
+        </div>
+      </div>
+      <div class="form-popup" id="dvPopupTraCuu">
+        <div
+          id="dvConPopupTraCuu"
+          class="form-container"
+          style="
+            background-image: -webkit-linear-gradient(
+              57deg,
+              #f3f3f3 0%,
+              #ffffff 100%,
+              rgb(17 164 26) 100%
+            );
+            color: #ffffff;
+            text-align: center;
+          "
+        >
+          <div class="form-container-close">
+            <input
+              class="form-close"
+              value="X"
+              type="button"
+              onclick="closePopupTraCuu()"
+            />
+          </div>
+          <div
+            id="dvNoiDungPopupTraCuu"
+            style="font-weight: bold; font-size: 25px; height: 200px"
+          >
+            <table>
+              <tr>
+                <td>
+                  <input
+                    id="txtSoDienThoai_TraCuu"
+                    type="text"
+                    class="myTextBox"
+                    style="padding: 5px 7px; width: 160px; font-size: 18px"
+                    placeholder="Số điện thoại"
+                  />
+                </td>
+                <td>
+                  <input
+                    onclick="LoadTraCuu()"
+                    id="btTim_TraCuu"
+                    type="button"
+                    value="Tìm"
+                    class="MyButton"
+                  />
+                </td>
+              </tr>
+            </table>
+            <div
+              id="dvThongTinTraCuu"
+              style="
+                color: #6d6d6d;
+                font-size: 17px;
+                margin-top: 10px;
+                max-height: 250px;
+                overflow: auto;
+              "
+            >
+              Danh sách các mảnh ghép bạn đã nhận được
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="dvLoadGif" style="display: none"></div>
+      <!-- Success Popup -->
+      <div id="dvSuccess" class="form-popup">
+        <div class="form-container">
+          <img
+            src="/images/iconClose.png"
+            class="close-btn"
+            onclick="closeSuccess()"
+            style="width: 20px; cursor: pointer"
+          />
+          <div class="success-header">Đăng ký thành công</div>
+          <div class="success-details" id="successDetails"></div>
+          <div class="random-number" id="randomNumber"></div>
+          <div class="qr-code" id="qrCode"></div>
+        </div>
+      </div>
+    </form>
+    <script>
+      // Generate a random captcha string
+      function generateCaptchaString(length = 6) {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+          result += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+          );
+        }
+        return result;
+      }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+      // Draw a more readable captcha on canvas and convert to image
+      function generateCaptcha() {
+        const canvas = document.getElementById("captchaCanvas");
+        const ctx = canvas.getContext("2d");
+        const captchaText = generateCaptchaString();
+        const captchaImage = document.getElementById("captchaImage");
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+        // Clear and set a clean background
+        ctx.fillStyle = "#ffffff"; // White background
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "bold 24px Arial"; // Larger, bold text
+        ctx.fillStyle = "#000000"; // Black text with corrected syntax
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Draw captcha text with minimal spacing and no rotation
+        const xOffset = canvas.width / 2;
+        const yOffset = canvas.height / 2;
+        for (let i = 0; i < captchaText.length; i++) {
+          ctx.fillText(
+            captchaText[i],
+            xOffset - (captchaText.length * 10) / 2 + i * 15,
+            yOffset
+          );
+        }
+
+        // Convert canvas to image and update src
+        captchaImage.src = canvas.toDataURL();
+        // Store captcha text for validation
+        sessionStorage.setItem("captchaText", captchaText);
+      }
+
+      // Load captcha on page load and when refresh is clicked
+      window.onload = function () {
+        generateCaptcha();
+      };
+
+      function GenQRImage(idPhien, MaThamDu) {
+        var GiaTri = MaThamDu;
+        var NoiDungHienBenDuoi = MaThamDu;
+        $.ajax({
+          type: "POST",
+          url: "/DangKy.aspx/GenQRImage",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          data:
+            "{GiaTri: '" +
+            GiaTri +
+            "',NoiDungHienBenDuoi: '" +
+            NoiDungHienBenDuoi +
+            "'}",
+          success: function (datas) {
+            if (datas.d != "") {
+              var urlTaiVe = datas.d;
+              document.getElementById("qrdl").href = urlTaiVe;
+              $("#qrcode").html(
+                "<img src='" + datas.d + "' style='width:150px' />"
+              );
+              $("#dvTaoMaQR").css("display", "");
+              SendEmail(idPhien, MaThamDu);
+            }
+          },
+          failure: function (response) {},
+        });
+      }
+      function SendEmail(idPhien, MaThamDu) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            if (xmlhttp.responseText.trim() == "True") {
+            }
+          }
+        };
+        xmlhttp.open(
+          "GET",
+          "/Ajax.aspx?Action=SendEmail&idPhien=" +
+            idPhien +
+            "&MaThamDu=" +
+            MaThamDu,
+          true
+        );
+        xmlhttp.send();
+      }
+
+      // Enhanced validation function
+      function DangKyThamDu(event) {
+        event.preventDefault(); // Prevent form submission for now
+        let isValid = true;
+        let errorMessages = [];
+
+        // Validate Sales Date
+        const salesDate = document.getElementById("slNgayBanHang").value;
+        if (!salesDate) {
+          isValid = false;
+          errorMessages.push("Vui lòng chọn Sales date (Ngày bán hàng)!");
+        }
+
+        // Validate Session
+        const session = document.getElementById("slPhien").value;
+        if (!session) {
+          isValid = false;
+          errorMessages.push("Vui lòng chọn Session (Phiên)!");
+        }
+
+        // Validate Full Name
+        const fullName = document.getElementById("txtHoTen").value.trim();
+        if (!fullName) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập Full name (Họ tên)!");
+        }
+
+        // Validate Date of Birth
+        const day = document.getElementById("txtNgaySinh_Nay").value;
+        const month = document.getElementById("txtNgaySinh_Thang").value;
+        const year = document.getElementById("txtNgaySinh_Nam").value;
+        if (!day || !month || !year) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập đầy đủ Date of birth (Ngày Sinh)!");
+        } else if (
+          day < 1 ||
+          day > 31 ||
+          month < 1 ||
+          month > 12 ||
+          year < 1900 ||
+          year > 2025
+        ) {
+          isValid = false;
+          errorMessages.push(
+            "Date of birth không hợp lệ (Ngày: 1-31, Tháng: 1-12, Năm: 1900-2025)!"
+          );
+        }
+
+        // Validate Phone Number
+        const phone = document.getElementById("txtSoDienThoai").value.trim();
+        if (!phone || !/^[0-9]{10,11}$/.test(phone)) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập Phone number hợp lệ (10-11 số)!");
+        }
+
+        // Validate Email
+        const email = document.getElementById("txtEmail").value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailPattern.test(email)) {
+          isValid = false;
+          errorMessages.push("Vui lòng nhập Email hợp lệ!");
+        }
+
+        // Validate ID Card/Passport
+        const idCard = document.getElementById("txtCCCD").value.trim();
+        if (!idCard || !/^[0-9]{9,12}$/.test(idCard)) {
+          isValid = false;
+          errorMessages.push(
+            "Vui lòng nhập ID Card/Passport hợp lệ (9-12 số)!"
+          );
+        }
+
+        // Validate Checkbox
+        const checkbox = document.getElementById("ckbDongY").checked;
+        if (!checkbox) {
+          isValid = false;
+          errorMessages.push("Vui lòng đồng ý với Thể lệ chương trình!");
+        }
+
+        // Validate Captcha
+        const userCaptcha = document.getElementById("txtCaptcha").value.trim();
+        const correctCaptcha = sessionStorage.getItem("captchaText");
+        if (!userCaptcha || userCaptcha !== correctCaptcha) {
+          isValid = false;
+          errorMessages.push("Captcha không đúng! Vui lòng thử lại.");
+          generateCaptcha(); // Refresh captcha on failure
+        }
+
+        // Display errors or proceed
+        if (!isValid) {
+          alert(errorMessages.join("\n"));
+        } else {
+          showSuccess();
+        }
+      }
+
+      // Show success popup with entered data and random number
+      function showSuccess() {
+        const salesDate = document.getElementById("slNgayBanHang").value;
+        const session = document.getElementById("slPhien").value;
+        const fullName = document.getElementById("txtHoTen").value.trim();
+        const day = document.getElementById("txtNgaySinh_Nay").value;
+        const month = document.getElementById("txtNgaySinh_Thang").value;
+        const year = document.getElementById("txtNgaySinh_Nam").value;
+        const phone = document.getElementById("txtSoDienThoai").value.trim();
+        const email = document.getElementById("txtEmail").value.trim();
+        const idCard = document.getElementById("txtCCCD").value.trim();
+        const randomNum = Math.floor(Math.random() * 100) + 1;
+
+        const details = `
+          Sales date (Ngày bán hàng): ${salesDate}<br>
+          Session (Phiên): ${session}<br>
+          Số thứ tự (Numerical order): #${randomNum}<br>
+          Full name (Họ tên): ${fullName}<br>
+          Date of birth (Ngày Sinh): ${day}/${month}/${year}<br>
+          Phone number (Số điện thoại): ${phone}<br>
+          Email: ${email}<br>
+          ID Card/Passport (CCCD/Hộ chiếu): ${idCard}<br>
+        `;
+        document.getElementById("successDetails").innerHTML = details;
+        document.getElementById("randomNumber").textContent = randomNum;
+        document.getElementById("dvSuccess").style.display = "block";
+        document.getElementById("dvConFields").style.display = "none"; // Hide form
+
+        // Generate a simple QR code placeholder
+        const qrCode = document.createElement("img");
+        qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${randomNum}`;
+        qrCode.style.width = "150px";
+        document.getElementById("qrCode").innerHTML = "";
+        document.getElementById("qrCode").appendChild(qrCode);
+      }
+
+      // Close success popup
+      function closeSuccess() {
+        document.getElementById("dvSuccess").style.display = "none";
+        document.getElementById("dvConFields").style.display = "block"; // Show form again
+        generateCaptcha(); // Refresh captcha for new attempt
+      }
+
+      function LoadCaptcha() {
+        generateCaptcha();
+      }
+      function CloseThongBao() {
+        document.getElementById("dvThongBao").style.display = "none";
+      }
+      function closeTrungThuong() {
+        document.getElementById("dvTrungThuong").style.display = "none";
+      }
+      function closePopupTraCuu() {
+        document.getElementById("dvPopupTraCuu").style.display = "none";
+      }
+      function LoadTraCuu() {
+        alert("Chức năng tìm kiếm chưa được triển khai!");
+      }
+    </script>
   </body>
 </html>
